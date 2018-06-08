@@ -15,3 +15,8 @@ def save_html(html, name):
     file = open(name + ".html","w+") 
     file.write(str(html))
     file.close() 
+
+def save_json(data, name):
+    file = open(name + ".json","w") 
+    file.write(data)
+    file.close() 
