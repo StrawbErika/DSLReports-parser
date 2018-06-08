@@ -11,7 +11,7 @@ def write_to_file(data):
     file.write(data)
     file.close() 
 
-def save_html(html):
-    file = open("new" + ".html","w") 
+def save_html(html, name):
+    file = open(name + ".html","w+") 
     file.write(str(html))
     file.close() 
