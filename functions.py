@@ -1,6 +1,24 @@
 import re
 import json
 from bs4 import BeautifulSoup
+import time
+import datetime
+
+abbrvMonths = [
+	" ",
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"June",
+	"July",
+	"Aug",
+	"Sept",
+	"Oct",
+	"Nov",
+	"Dec"
+]
 
 # cleans html tags
 def clean_html(raw_html):
@@ -20,7 +38,7 @@ def get_complete_data(index, titles, content, name, time):
         "Time stamp" : clean_html(str(time[index]))
     }
     return complete_data
-    
+
 def get_all_answers(length, titles, content, name, time):
     answers = []
     x = 1
@@ -45,3 +63,36 @@ def get_titles(soup, post):
         titles.append((post[index]).previous_sibling)
         index = index + 1
     return titles
+
+def convert_date_to_num(timestamp):
+    num_date = []
+    a = clean_html(str(timestamp)).split("-")
+    b = a[2].split(" ")
+    num_date.append(int(a[0]))
+    num_date.append(int(convert_month_to_num(a[1])))
+    num_date.append(int(b[0]))
+    return num_date
+
+def convert_month_to_num(month):
+    return (abbrvMonths.index(month))
+
+def get_all_date_num(all_timestamps):
+    timestamp = []
+    a = 0
+    while(a != len(all_timestamps)):
+        timestamp.append(convert_date_to_num(all_timestamps[a]))
+        a = a + 1
+    return timestamp
+
+def convert_to_POSIX(timestamp):
+    d = datetime.date(timestamp[0],timestamp[1],timestamp[2])
+    unixtime = time.mktime(d.timetuple())
+    return unixtime
+
+def converted_POSIX(list):
+    converted = []
+    a = 0
+    while(a != len(list)):
+        converted.append(convert_to_POSIX(list[a]))
+        a = a + 1
+    return converted
