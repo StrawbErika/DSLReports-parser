@@ -32,10 +32,10 @@ def to_json(dictionary):
 
 def get_complete_data(index, titles, content, name, time):
     complete_data = {
-        "Header" : clean_html(str(titles[index])),
-        "Description" : clean_html(str(content[index])),
-        "Author" : name[index],
-        "Time stamp" : clean_html(str(time[index]))
+        "header" : clean_html(str(titles[index])),
+        "message" : clean_html(str(content[index])),
+        "user_id" : name[index],
+        "date_posted" : clean_html(str(time[index]))
     }
     return complete_data
 
